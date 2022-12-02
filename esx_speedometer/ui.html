@@ -1,0 +1,154 @@
+<html lang="es">
+   <head>
+      <style>
+     @import url('https://fonts.googleapis.com/css2?family=Oswald&display=swap');
+         @import url('https://pro.fontawesome.com/releases/v5.15.2/css/all.css');
+         html,
+         body {
+            overflow:hidden;
+            user-select:none;
+         }
+         .carhud {
+            position:fixed;
+            transform:translate(-50%,-50%);
+            bottom:5%;
+            left:40%;
+            padding:2.5vh 22.5vh;
+            background-color:black;
+            border-radius:0.5vh;
+            transform:perspective(400px) rotateX(20deg);
+            -webkit-box-shadow: inset -1px 3px 8px 5px black, 2px 5px 16px 0px black, 0px 28px 50px 17px rgba(0,0,0,0.48); 
+box-shadow: inset -1px 3px 8px 5px black, 2px 5px 16px 0px black, 0px 28px 50px 17px rgba(0,0,0,0.48);
+                -webkit-animation: paraDerecha 1s forwards;
+    animation: paraDerecha 1s forwards;
+         }
+         .estaEnCoche {
+                -webkit-animation: paraIzqueirda 1s forwards;
+    animation: paraIzqueirda 1s forwards;  
+         }
+         .carhud .speed .speed-text {
+          font-size:2.5vh;  
+            color:white;
+            position:fixed;
+            top:2.5vh;
+            left:12vh;
+            transform:translate(-50%,-50%);
+            font-family: 'Oswald', sans-serif;
+         }
+         .fa-tachometer {
+            font-size:3vh;
+            position:fixed;
+            transform:translate(-50%,-50%);
+            top:2.5vh;
+            color:white;
+            left:4vh;
+         }
+         .carhud .fuel .fuel-text {
+            font-size:2.5vh;
+            color:white;
+            position:fixed;
+            top:2.5vh;
+            left:26vh;
+            transform:translate(-50%,-50%);
+            font-family: 'Oswald', sans-serif;
+         }
+         .fa-gas-pump {
+            font-size:3vh;
+            top:2.5vh;
+            color:white;
+            left:20vh;
+            position:fixed;
+            transform:translate(-50%,-50%);
+         }
+         .fa-wrench {
+            font-size:3vh;
+            color:white;
+            transform:translate(-50%,-50%);
+            left:33vh;
+            top:2.5vh;
+            position:fixed;
+         }
+         .vehicle-status-text {
+            font-size:2.5vh;
+            color:white;
+            position:fixed;
+            transform:translate(-50%,-50%);
+            left:39vh;
+            top:2.5vh;
+            font-family:'Oswald', sans-serif;
+         }
+         @-webkit-keyframes paraIzqueirda {
+    0% {
+        bottom: 0px;
+        opacity: 0;
+    }
+    100% {
+        bottom: 20px;
+        opacity: 1;
+    }
+}
+
+@keyframes paraIzqueirda {
+    0% {
+        bottom: 0px;
+        opacity: 0;
+    }
+    100% {
+        bottom: 20px;
+        opacity: 1;
+    }
+}
+
+@-webkit-keyframes paraDerecha {
+    0% {
+        bottom: 20px;
+        opacity: 1;
+    }
+    100% {
+        bottom: 25px;
+        opacity: 0;
+    }
+}
+
+@keyframes paraDerecha {
+    0% {
+        bottom: 20px;
+        opacity: 1;
+    }
+    100% {
+        bottom: 25px;
+        opacity: 0;
+    }
+}
+      </style>
+   </head>
+   <body>
+      <div class="carhud">
+         <div class="speed">
+            <i class="fal fa-tachometer"></i><span class="speed-text">100 KM/H</span>
+         </div>
+         <div class="fuel">
+            <i class="fal fa-gas-pump"></i><span class="fuel-text">100%</span>
+         </div>
+         <div class="vehicle-status">
+            <i class="fal fa-wrench"></i><span class="vehicle-status-text">100%</span>
+         </div>
+      </div>
+      <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+      <script>
+         $(function() {
+    window.addEventListener('message', function(event) {
+        if (event.data.isInCoche) {
+            $(".carhud").addClass('estaEnCoche');
+            $(".speed-text").html(Math.round(event.data.speed) + " KM/H");
+            $(".fuel-text").html(Math.round(event.data.fueltexto) + " %");
+            $(".vehicle-status-text").html(Math.round(event.data.vidatexto) + " %");
+        } else {
+            $(".carhud").removeClass('estaEnCoche');
+        }
+    });
+});
+
+      </script>
+   </body>
+</html>
